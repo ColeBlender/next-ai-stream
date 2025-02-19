@@ -12,6 +12,18 @@ npm install next-ai-stream
 yarn add next-ai-stream
 ```
 
+## Overview
+
+**`next-ai-stream`** is a lightweight, plug-and-play package for streaming AI responses in **Next.js 15** projects using the **App Router**. It simplifies integrating **real-time AI chat** powered by OpenAI (or compatible APIs like xAI).
+
+With just a few lines of code, you can:
+
+- **Set up an AI chat API route** in Next.js.
+- **Stream responses** to the frontend with hooks.
+- **Support any OpenAI-compatible API** (like xAI).
+
+This package handles the complex parts of **streaming AI messages**, so you can focus on building your app. 🚀
+
 ## Usage
 
 ### 1. Add OpenAI Client
