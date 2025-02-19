@@ -1,0 +1,43 @@
+{
+  "name": "next-ai-stream",
+  "version": "1.0.0",
+  "description": "Stream AI chat responses in Next.js with TypeScript",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "pnpm build"
+  },
+  "exports": {
+    "./client": {
+      "types": "./dist/client/index.d.ts",
+      "default": "./dist/client/index.js"
+    },
+    "./server": {
+      "types": "./dist/server/index.d.ts",
+      "default": "./dist/server/index.js"
+    }
+  },
+  "keywords": [
+    "nextjs",
+    "ai",
+    "chat",
+    "stream",
+    "typescript",
+    "realtime"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "@types/react": "^19.0.10",
+    "@types/uuid": "^10.0.0",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "next": "^15.1.7",
+    "openai": "^4.85.2",
+    "react": "^19.0.0",
+    "uuid": "^11.1.0"
+  }
+}
