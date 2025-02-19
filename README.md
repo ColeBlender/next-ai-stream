@@ -60,7 +60,7 @@ export { GET, POST };
 
 ### 3. Start AI Chat Stream
 
-```typescript
+```tsx
 // src/app/page.tsx
 
 "use client";

@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
-import { ChatCompletionMessageParam } from "openai/src/resources/index.js";
+import { ChatCompletionMessageParam } from "openai/resources";
 
-type Props = {
+export type StreamChatCompletionProps = {
   request: NextRequest;
-  jobs: {
-    [key: string]: Array<ChatCompletionMessageParam>;
-  };
+  jobs: Record<string, ChatCompletionMessageParam[]>;
   client: OpenAI;
   model: string;
 };
@@ -16,10 +14,10 @@ export async function streamChatCompletion({
   jobs,
   client,
   model,
-}: Props) {
+}: StreamChatCompletionProps): Promise<NextResponse> {
   const jobId = request.nextUrl.searchParams.get("jobId");
   if (!jobId) {
-    return new Response('"jobId" missing in searchParams', { status: 400 });
+    return new NextResponse('"jobId" missing in searchParams', { status: 400 });
   }
 
   const messages = jobs[jobId];

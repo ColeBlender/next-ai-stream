@@ -1,15 +1,16 @@
-import { NextRequest } from "next/server";
-import { ChatCompletionMessageParam } from "openai/src/resources/index.js";
 import { v4 as uuidv4 } from "uuid";
+import { NextRequest } from "next/server";
+import { ChatCompletionMessageParam } from "openai/resources";
 
-type CreateProps = {
+type CreateChatJobProps = {
   request: NextRequest;
-  jobs: {
-    [key: string]: Array<ChatCompletionMessageParam>;
-  };
+  jobs: Record<string, ChatCompletionMessageParam[]>;
 };
 
-export async function createChatJob({ request, jobs }: CreateProps) {
+export async function createChatJob({
+  request,
+  jobs,
+}: CreateChatJobProps): Promise<Response> {
   const { messages } = await request.json();
 
   if (!Array.isArray(messages)) {

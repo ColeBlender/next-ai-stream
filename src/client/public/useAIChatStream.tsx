@@ -1,42 +1,56 @@
 "use client";
 
-import { ChatCompletionMessageParam } from "openai/src/resources/index.js";
 import { useState } from "react";
+import { ChatCompletionMessageParam } from "openai/src/resources/index.js";
+import { UseAIChatStreamProps, UseAIChatStreamReturn } from "../types";
 
-type Props = {
-  apiEndpoint: string;
-  systemPrompt: string;
-};
-
-export function useAIChatStream({ apiEndpoint, systemPrompt }: Props): {
-  messages: ChatCompletionMessageParam[];
-  submitNewMessage: (text: string) => Promise<void>;
-  loading: boolean;
-} {
+/**
+ * **Docs:** [GitHub Repository](https://github.com/ColeBlender/next-ai-stream)
+ *
+ * A React hook for streaming AI chat responses in real-time.
+ *
+ * This hook manages message state, sends user input to an AI model,
+ * and handles Server-Sent Events (SSE) to stream responses.
+ *
+ * @example
+ * ```tsx
+ * // src/app/page.tsx
+ *
+ * "use client";
+ *
+ * import { useAIChatStream } from "next-ai-stream/client";
+ *
+ * const { messages, submitNewMessage, loading } = useAIChatStream({
+ *   apiEndpoint: "/api/chat",
+ *   systemPrompt: "You are an AI assistant.",
+ * });
+ * ```
+ *
+ * @param {UseAIChatStreamProps} props - Configuration for the chat stream.
+ * @param {string} props.apiEndpoint - The API route for handling chat requests.
+ * @param {string} props.systemPrompt - The initial system message for context.
+ * @returns {UseAIChatStreamReturn} - The chat messages, a function to send messages, and a loading state.
+ */
+export function useAIChatStream({
+  apiEndpoint,
+  systemPrompt,
+}: UseAIChatStreamProps): UseAIChatStreamReturn {
   const [messages, setMessages] = useState<ChatCompletionMessageParam[]>([
-    {
-      role: "system",
-      content: systemPrompt,
-    },
+    { role: "system", content: systemPrompt },
   ]);
   const [loading, setLoading] = useState(false);
 
   const submitNewMessage = async (content: string) => {
     setLoading(true);
 
-    const newMessage: ChatCompletionMessageParam = {
-      role: "user",
-      content,
-    };
+    const newMessage: ChatCompletionMessageParam = { role: "user", content };
     const newMessages = [...messages, newMessage];
 
     setMessages(newMessages);
 
     const jobId = await fetch(apiEndpoint, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages: newMessages }),
     }).then((res) => res.json());
 
@@ -59,10 +73,7 @@ export function useAIChatStream({ apiEndpoint, systemPrompt }: Props): {
           } else {
             return [
               ...prevMessages,
-              {
-                role: "assistant",
-                content: data.content,
-              },
+              { role: "assistant", content: data.content },
             ];
           }
         });
