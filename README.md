@@ -1,5 +1,7 @@
 # next-ai-stream
 
+test
+
 ```bash
 pnpm add next-ai-stream
 ```
