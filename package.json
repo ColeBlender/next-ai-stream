@@ -29,8 +29,7 @@
     "ai",
     "chat",
     "stream",
-    "typescript",
-    "realtime"
+    "typescript"
   ],
   "author": "Cole Blender",
   "license": "MIT",
