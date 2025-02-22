@@ -25,12 +25,10 @@ import {
  *
  * export const dynamic = "force-dynamic";
  *
- * const { GET, POST } = createAIChatStreamRouteHandlers({
+ * export const { GET, POST } = createAIChatStreamRouteHandlers({
  *   client,
  *   model: "grok-2-latest",
  * });
- *
- * export { GET, POST };
  * ```
  *
  * @param {AIChatStreamConfig} props - Configuration for the API handlers.
